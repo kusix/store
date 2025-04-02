@@ -1,0 +1,30 @@
+services:
+  app:
+    image: loganjia/store:latest  # JIB 构建的镜像
+    ports:
+      - "80:80"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/store
+    depends_on:
+      - db
+    networks:
+      - my-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=store
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
