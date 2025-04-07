@@ -1,0 +1,24 @@
+server:
+  port: 80
+  error:
+    include-message: always
+  shutdown: graceful
+spring:
+  application:
+    name: store
+  datasource:
+    url: jdbc:mysql://localhost:3306/store?createDatabaseIfNotExist=true
+    username: root
+    password: password
+  jpa:
+    show-sql: true
+stripe:
+  apiUrl: https://api.stripe.com
+  enabled: true
+  timeout: 1000
+  supported-currencies: CNY,USD,AUD,JPY
+payment:
+  gateway: stripe
+logging:
+  level:
+    org.apache.tomcat: WARN
