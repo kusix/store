@@ -33,8 +33,7 @@ jobs:
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-          VARNAME1: ${{ env.VARNAME1 }}
-          VARNAME2: ${{ env.github_actions.VARNAME1 }}
+          VARNAME1: ${{ vars.VARNAME1 }}
         run: |
           echo "DOCKER_HUB_USERNAME is set: ${{ secrets.DOCKER_HUB_USERNAME != '' }}"
           echo "DOCKER_HUB_TOKEN is set: ${{ secrets.DOCKER_HUB_TOKEN != '' }}"
