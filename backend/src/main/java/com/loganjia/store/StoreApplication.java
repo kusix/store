@@ -13,7 +13,7 @@ public class StoreApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        System.out.println(context.getBean(ProductService.class));
+        System.out.println("hello");
     }
 
 }
