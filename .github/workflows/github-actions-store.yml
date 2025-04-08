@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github_actions
     services:
       db:
         image: mysql:8.0
@@ -29,17 +31,13 @@ jobs:
           cache: 'maven'
       - name: Build and run unit/integration tests with Maven
         env:
-          DOCKER_HUB_USERNAME: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_TOKEN: ${{ secrets.github_actions.DOCKER_HUB_TOKEN }}
-          VARNAME1: ${{ env.VARNAME1 }}
-          VARNAME2: ${{ env.github_actions.VARNAME1 }}
-          VARNAME3: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          VARNAME1: ${{ vars.VARNAME1 }}
         run: |
           echo "DOCKER_HUB_USERNAME is set: ${{ secrets.DOCKER_HUB_USERNAME != '' }}"
           echo "DOCKER_HUB_TOKEN is set: ${{ secrets.DOCKER_HUB_TOKEN != '' }}"
-          echo "DOCKER_HUB_TOKEN.github_actions is set: ${{ secrets.github_actions.DOCKER_HUB_TOKEN != '' }}"
           echo "VARNAME1 is set: ${{ env.VARNAME1 != '' }}"
-          echo "VARNAME2 is set: ${{ env.github_actions.VARNAME1 != '' }}"
           mvn -ntp -B verify \
             -Djib.to.auth.username=$DOCKER_HUB_USERNAME \
             -Djib.to.auth.password=$DOCKER_HUB_TOKEN
