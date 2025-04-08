@@ -31,6 +31,9 @@ jobs:
         env:
           DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          VARNAME1: ${{ secrets.VARNAME1 }}
+          VARNAME2: ${{ secrets.github_actions.VARNAME1 }}
+          VARNAME3: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
         run: |
           mvn -ntp -B verify \
             -Djib.to.auth.username=$DOCKER_HUB_USERNAME \
