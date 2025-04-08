@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - store/backend/**
+      - backend/**
 jobs:
   build:
     runs-on: ubuntu-latest
