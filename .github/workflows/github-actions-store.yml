@@ -35,6 +35,11 @@ jobs:
           VARNAME2: ${{ env.github_actions.VARNAME1 }}
           VARNAME3: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
         run: |
+          echo "DOCKER_HUB_USERNAME is set: ${{ secrets.DOCKER_HUB_USERNAME != '' }}"
+          echo "DOCKER_HUB_TOKEN is set: ${{ secrets.DOCKER_HUB_TOKEN != '' }}"
+          echo "DOCKER_HUB_TOKEN.github_actions is set: ${{ secrets.github_actions.DOCKER_HUB_TOKEN != '' }}"
+          echo "VARNAME1 is set: ${{ env.VARNAME1 != '' }}"
+          echo "VARNAME2 is set: ${{ env.github_actions.VARNAME1 != '' }}"
           mvn -ntp -B verify \
             -Djib.to.auth.username=$DOCKER_HUB_USERNAME \
             -Djib.to.auth.password=$DOCKER_HUB_TOKEN
