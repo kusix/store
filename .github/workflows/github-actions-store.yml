@@ -29,10 +29,10 @@ jobs:
           cache: 'maven'
       - name: Build and run unit/integration tests with Maven
         env:
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-          VARNAME1: ${{ secrets.VARNAME1 }}
-          VARNAME2: ${{ secrets.github_actions.VARNAME1 }}
+          DOCKER_HUB_USERNAME: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.github_actions.DOCKER_HUB_TOKEN }}
+          VARNAME1: ${{ env.VARNAME1 }}
+          VARNAME2: ${{ env.github_actions.VARNAME1 }}
           VARNAME3: ${{ secrets.github_actions.DOCKER_HUB_USERNAME }}
         run: |
           mvn -ntp -B verify \
