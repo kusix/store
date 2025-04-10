@@ -31,6 +31,9 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <docker.username>loganjia</docker.username>
+        <docker.image.name>store</docker.image.name>
+        <docker.image.version>0.0.1</docker.image.version>
     </properties>
     <dependencies>
         <dependency>
@@ -145,7 +148,7 @@
                     <execution>
                         <id>pre-integration-test</id>
                         <goals>
-                            <goal>start</goal>
+                            <!--goal>start</goal-->
                         </goals>
                     </execution>
                     <execution>
@@ -191,21 +194,13 @@
                     </from>
                     <to>
                         <image>
-                            docker.io/${organization.name}/${project.artifactId}:${project.version}
+                            docker.io/${docker.username}/${docker.image.name}:${docker.image.version}
                         </image>
                         <tags>
                             <tag>latest</tag>
                         </tags>
                     </to>
                 </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase> <!-- 绑定到 package 阶段 -->
-                        <goals>
-                            <goal>build</goal> <!-- 或 dockerBuild -->
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -1,4 +1,4 @@
-name: CI - Build Backend
+name: CI - Build and Test Backend
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment:
-      name: github_actions
+      name: dev
     services:
       db:
         image: mysql:8.0
@@ -30,11 +30,4 @@ jobs:
           java-version: '17'
           cache: 'maven'
       - name: Build and run unit/integration tests with Maven
-        env:
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
-          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
-          VARNAME1: ${{ vars.VARNAME1 }}
-        run: |
-          mvn -ntp -B verify \
-            -Djib.to.auth.username=$DOCKER_HUB_USERNAME \
-            -Djib.to.auth.password=$DOCKER_HUB_TOKEN
+        run: mvn -ntp -B verify
