@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "store",
-      "image": "loganjia/store:latest",
+      "image": "loganjia/store:20250410-091009",
       "essential": true,
       "memory": 512,
       "portMappings": [
