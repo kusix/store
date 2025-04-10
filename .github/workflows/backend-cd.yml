@@ -40,10 +40,15 @@ jobs:
       - name: build version number
         run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
+      - name: Update dockerrun.json
+        run: |
+          sed -i "s|\"image\": \"loganjia/store:latest\"|\"image\": \"loganjia/store:${{ env.TIMESTAMP }}\"|g" dockerrun.json
+          cat dockerrun.json
+
       - name: Deploy with Maven
         run: |
           mvn -ntp -B verify \
-          -Ddocker.image.tag="${{ env.TIMESTAMP }}" jib:build
+          -Ddocker.image.version="${{ env.TIMESTAMP }}" jib:build
 
       - name: Deploy to AWS EB
         uses: einaregilsson/beanstalk-deploy@v22
@@ -56,3 +61,11 @@ jobs:
           version_description: ${{github.SHA}}
           region: ${{ vars.EB_REGION }}
           deployment_package: backend/dockerrun.aws.json
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add dockerrun.json
+          git commit -m "Update image tag to ${{ env.TIMESTAMP }}"
+          git push
